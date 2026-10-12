@@ -1,0 +1,46 @@
+name: Deploy Tuuvo Site to VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to tuuvo.com.br
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup SSH Key
+        if: env.SSH_PRIVATE_KEY != ''
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H "$SERVER_HOST" >> ~/.ssh/known_hosts
+
+      - name: Package and Deploy
+        if: env.SSH_PRIVATE_KEY != ''
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SERVER_USER: ${{ secrets.SERVER_USER || 'deploy' }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH || '/opt/tuuvo/site' }}
+        run: |
+          mkdir -p /tmp/tuuvo-site-pkg
+          rsync -a --exclude='.git' --exclude='.github' ./ /tmp/tuuvo-site-pkg/
+          cd /tmp && tar -czf tuuvo-site.tar.gz tuuvo-site-pkg
+          scp -o StrictHostKeyChecking=no /tmp/tuuvo-site.tar.gz ${SERVER_USER}@${SERVER_HOST}:/tmp/tuuvo-site.tar.gz
+          ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} "mkdir -p ${DEPLOY_PATH} && tar -xzf /tmp/tuuvo-site.tar.gz -C ${DEPLOY_PATH} --strip-components=1 && rm -f /tmp/tuuvo-site.tar.gz && cd ${DEPLOY_PATH} && chmod +x tuuvo.sh && ./tuuvo.sh install"
+
+      - name: Notify configuration needed
+        if: env.SSH_PRIVATE_KEY == ''
+        run: |
+          echo "::warning ::SSH_PRIVATE_KEY secret não configurado no repositório. O deploy automático iniciará assim que os secrets forem preenchidos."

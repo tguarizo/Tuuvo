@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tuuvo — Plataforma Integrada</title>
+  <meta name="description" content="Tuuvo — Plataforma central de inteligência, comunicação e sustentação para o ecossistema Coonto e Coonto Corporate.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090c10;
+      --card-bg: rgba(22, 27, 34, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --primary: #38bdf8;
+      --primary-glow: rgba(56, 189, 248, 0.25);
+      --accent: #818cf8;
+      --text: #f0f6fc;
+      --text-muted: #8b949e;
+      --success: #3fb950;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(129, 140, 248, 0.08) 0%, transparent 50%);
+    }
+    .container {
+      max-width: 680px;
+      width: 100%;
+      text-align: center;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: var(--primary);
+      padding: 0.4rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 1.75rem;
+      letter-spacing: 0.02em;
+    }
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--success);
+      animation: pulse 2s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 3.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+      background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p.lead {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      text-align: left;
+    }
+    @media (max-width: 580px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      border-radius: 14px;
+      padding: 1.25rem;
+      transition: all 0.25s ease;
+    }
+    .card:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
+    }
+    .card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    footer {
+      font-size: 0.85rem;
+      color: #4b5563;
+      border-top: 1px solid var(--card-border);
+      padding-top: 1.5rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Infraestrutura Operacional Ativa
+    </div>
+    
+    <h1>Tuuvo</h1>
+    <p class="lead">
+      Plataforma central de tecnologia, inteligência e ecossistema digital. Sustentando produtos de impacto e experiências transformadoras.
+    </p>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">📚 Coonto Educação</div>
+        <div class="card-desc">Plataforma de experiências literárias e letramento escolar ativo em dev.coonto.com e coonto.com.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">💼 Coonto Corporate</div>
+        <div class="card-desc">Solução corporativa com inteligência de relacionamento em corporate.dev.coonto.com.</div>
+      </div>
+    </div>
+
+    <footer>
+      &copy; 2026 Tuuvo Tecnologias. Todos os direitos reservados.
+    </footer>
+  </main>
+</body>
+</html>
